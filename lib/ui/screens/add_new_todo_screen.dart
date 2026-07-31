@@ -49,6 +49,9 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
                   labelText: 'description',
                   hintText: 'description',
                 ),
+                maxLines: 5,
+                minLines: 1,
+                maxLength: 250,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value?.trim().isEmpty ?? true) {
