@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../entities/todo.dart';
 
@@ -31,7 +32,10 @@ class TodoItem extends StatelessWidget {
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Text(todo.description), Text(todo.time.toString())],
+          children: [
+            Text(todo.description),
+            Text(DateFormat.yMEd().add_jms().format(todo.time)),
+          ],
         ),
         trailing: _buildRoundedIconButton(todo.isDone),
       ),
@@ -41,7 +45,7 @@ class TodoItem extends StatelessWidget {
   Widget _buildRoundedIconButton(bool isDone) {
     return GestureDetector(
       onTap: onIconButtonPressed,
-      child: CircleAvatar(child: Icon(_getIcon(true))),
+      child: CircleAvatar(child: Icon(_getIcon(!todo.isDone))),
     );
   }
 

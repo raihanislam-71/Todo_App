@@ -21,8 +21,24 @@ class _TodoListScreenState extends State<TodoListScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(title: const Text('Todo List'), bottom: _buildTabBar()),
-        body: const TabBarView(
-          children: [AllTodoListTab(), DoneTodoListTab(), UndoneTodoListTab()],
+        body: TabBarView(
+          children: [
+            AllTodoListTab(
+              todoList: _todoList,
+              onDelete: _deleteTodo,
+              onStatusChange: _toggleTodoState,
+            ),
+            UndoneTodoListTab(
+              todoList: _todoList.where((item) => item.isDone == false).toList(),
+              onDelete: _deleteTodo,
+              onStatusChange: _toggleTodoState,
+            ),
+            DoneTodoListTab(
+              todoList: _todoList.where((item) => item.isDone == true).toList(),
+              onDelete:_deleteTodo,
+              onStatusChange: _toggleTodoState,
+            ),
+          ],
         ),
         floatingActionButton: _buildAddTodoFAB(),
       ),
@@ -35,7 +51,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AddNewTodoScreen()),
+          MaterialPageRoute(builder: (context) => AddNewTodoScreen(onAddTodo: _addNewTodo)),
         );
       },
       label: const Text('Add'),
@@ -44,6 +60,33 @@ class _TodoListScreenState extends State<TodoListScreen> {
   }
 
   TabBar _buildTabBar() {
-    return const TabBar(tabs: [Text('All'), Text('Done'), Text("UnDone")]);
+    return const TabBar(
+      tabs: [
+        Text('All'),
+        Text("UnDone"),
+        Text('Done'),
+      ]
+    );
+  }
+
+  void _addNewTodo(Todo tobo) {
+    _todoList.add(tobo);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void _deleteTodo(int index) {
+    _todoList.removeAt(index);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void _toggleTodoState(int index) {
+    _todoList[index].isDone = !_todoList[index].isDone;
+    if (mounted) {
+      setState(() {});
+    }
   }
 }
