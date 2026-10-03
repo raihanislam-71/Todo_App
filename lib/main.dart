@@ -1,6 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_app/app.dart';
+import 'package:todo_app/firebase_options.dart';
 
-void main(){
+Future<void> main() async {
+  
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(TodoApp());
 }

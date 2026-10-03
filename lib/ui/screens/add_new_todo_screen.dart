@@ -11,8 +11,8 @@ class AddNewTodoScreen extends StatefulWidget {
 }
 
 class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
-  TextEditingController _titleTEController = TextEditingController();
-  TextEditingController _descriptonTEController = TextEditingController();
+  final TextEditingController _titleTEController = TextEditingController();
+  final TextEditingController _descriptonTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
